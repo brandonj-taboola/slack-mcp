@@ -30,45 +30,19 @@ A Model Context Protocol (MCP) server that connects Claude Desktop to Slack. Aut
 ## Prerequisites
 
 - Node.js 20.x or later
-- A Slack workspace where you can install apps
 - Claude Desktop
 - mkcert (for local SSL certificates)
+- Slack App credentials (Client ID and Client Secret) - **request from project administrator**
 
 ## Setup Instructions
 
-### Step 1: Create a Slack App
+### Step 1: Get Slack App Credentials
 
-1. Go to [api.slack.com/apps](https://api.slack.com/apps)
-2. Click **Create New App** > **From scratch**
-3. Name it (e.g., "Claude Slack MCP") and select your workspace
-4. Under **OAuth & Permissions**, add these **User Token Scopes**:
+**Request the following from your project administrator:**
+- Slack Client ID
+- Slack Client Secret
 
-| Scope | Purpose |
-|-------|---------|
-| `channels:read` | List public channels |
-| `groups:read` | List private channels |
-| `channels:history` | Read public channel messages |
-| `groups:history` | Read private channel messages |
-| `im:read` | List direct messages |
-| `im:history` | Read DM content |
-| `mpim:read` | List group DMs |
-| `mpim:history` | Read group DM content |
-| `chat:write` | Post messages |
-| `users:read` | Get user info |
-| `reactions:read` | Read emoji reactions |
-| `reactions:write` | Add emoji reactions |
-| `files:read` | View shared files |
-| `files:write` | Upload files |
-| `search:read` | Search messages |
-
-5. Under **OAuth & Permissions** > **Redirect URLs**, add:
-   ```
-   https://localhost:8435/callback
-   ```
-
-6. Click **Save URLs**
-
-7. Note your **Client ID** and **Client Secret** from **Basic Information** > **App Credentials**
+These credentials are for the shared Slack App that has already been configured with the required permissions and redirect URLs.
 
 ### Step 2: Install SSL Certificates
 
@@ -123,12 +97,19 @@ This creates two files in your project directory:
 - `localhost+1.pem` (certificate)
 - `localhost+1-key.pem` (private key)
 
-### Step 3: Install Dependencies and Build
+### Step 3: Clone and Build the Project
 
 ```bash
-cd /path/to/slack-mcp
+git clone https://github.com/brandonj-taboola/slack-mcp.git
+cd slack-mcp
 npm install
 npm run build
+```
+
+Then generate the SSL certificates in the project directory:
+
+```bash
+mkcert localhost 127.0.0.1
 ```
 
 ### Step 4: Configure Claude Desktop
@@ -173,8 +154,8 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 Replace:
 - `/path/to/slack-mcp` with the actual path to this project
-- `your-client-id` with your Slack App's Client ID
-- `your-client-secret` with your Slack App's Client Secret
+- `your-client-id` with the Client ID from your project administrator
+- `your-client-secret` with the Client Secret from your project administrator
 
 ### Step 5: Restart Claude Desktop
 
@@ -353,6 +334,52 @@ npm run build
 # Run directly (for testing)
 SLACK_CLIENT_ID=xxx SLACK_CLIENT_SECRET=yyy npm start
 ```
+
+## Administrator Setup
+
+This section is for project administrators who need to create and manage the shared Slack App.
+
+### Creating the Slack App
+
+1. Go to [api.slack.com/apps](https://api.slack.com/apps)
+2. Click **Create New App** > **From scratch**
+3. Name it (e.g., "Claude Slack MCP") and select your workspace
+4. Under **OAuth & Permissions**, add these **User Token Scopes**:
+
+| Scope | Purpose |
+|-------|---------|
+| `channels:read` | List public channels |
+| `groups:read` | List private channels |
+| `channels:history` | Read public channel messages |
+| `groups:history` | Read private channel messages |
+| `im:read` | List direct messages |
+| `im:history` | Read DM content |
+| `mpim:read` | List group DMs |
+| `mpim:history` | Read group DM content |
+| `chat:write` | Post messages |
+| `users:read` | Get user info |
+| `reactions:read` | Read emoji reactions |
+| `reactions:write` | Add emoji reactions |
+| `files:read` | View shared files |
+| `files:write` | Upload files |
+| `search:read` | Search messages |
+
+5. Under **OAuth & Permissions** > **Redirect URLs**, add:
+   ```
+   https://localhost:8435/callback
+   ```
+
+6. Click **Save URLs**
+
+7. Note your **Client ID** and **Client Secret** from **Basic Information** > **App Credentials**
+
+### Distributing to Users
+
+Share the following with users who need access:
+- The **Client ID** and **Client Secret** (securely)
+- Link to this repository for setup instructions
+
+Each user will authenticate with their own Slack account, so they will only see channels and messages they have access to. The shared app credentials just identify the application - user data is protected by individual OAuth tokens.
 
 ## License
 
