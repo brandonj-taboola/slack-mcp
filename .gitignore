@@ -28,3 +28,9 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 
+# SSL Certificates (mkcert)
+*.pem
+
+# Slack OAuth token
+.slack-token.json
+
