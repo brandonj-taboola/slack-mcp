@@ -44,21 +44,41 @@ A Model Context Protocol (MCP) server that connects Claude Desktop to Slack. Aut
 
 These credentials are for the shared Slack App that has already been configured with the required permissions and redirect URLs.
 
-### Step 2: Install SSL Certificates
+### Step 2: Clone the Project
+
+#### Windows
+
+```powershell
+cd C:\Users\%USERNAME%\
+mkdir "Claude Projects"
+cd "Claude Projects"
+git clone https://github.com/brandonj-taboola/slack-mcp.git
+cd slack-mcp
+```
+
+#### macOS / Linux
+
+```bash
+mkdir -p ~/claude-projects
+cd ~/claude-projects
+git clone https://github.com/brandonj-taboola/slack-mcp.git
+cd slack-mcp
+```
+
+### Step 3: Install SSL Certificates
 
 Slack requires HTTPS for OAuth redirects. Use mkcert to create trusted local certificates.
 
 #### Windows
 
 ```powershell
-# Install mkcert (requires Chocolatey)
+# Install mkcert (requires Chocolatey - run in Administrator PowerShell)
 choco install mkcert -y
 
 # Install the local certificate authority
 mkcert -install
 
-# Generate certificates in the project directory
-cd "C:\path\to\slack-mcp"
+# Generate certificates in the project directory (run from slack-mcp folder)
 mkcert localhost 127.0.0.1
 ```
 
@@ -71,8 +91,7 @@ brew install mkcert
 # Install the local certificate authority
 mkcert -install
 
-# Generate certificates in the project directory
-cd /path/to/slack-mcp
+# Generate certificates in the project directory (run from slack-mcp folder)
 mkcert localhost 127.0.0.1
 ```
 
@@ -88,8 +107,7 @@ sudo pacman -S mkcert
 # Install the local certificate authority
 mkcert -install
 
-# Generate certificates in the project directory
-cd /path/to/slack-mcp
+# Generate certificates in the project directory (run from slack-mcp folder)
 mkcert localhost 127.0.0.1
 ```
 
@@ -97,22 +115,14 @@ This creates two files in your project directory:
 - `localhost+1.pem` (certificate)
 - `localhost+1-key.pem` (private key)
 
-### Step 3: Clone and Build the Project
+### Step 4: Install Dependencies and Build
 
 ```bash
-git clone https://github.com/brandonj-taboola/slack-mcp.git
-cd slack-mcp
 npm install
 npm run build
 ```
 
-Then generate the SSL certificates in the project directory:
-
-```bash
-mkcert localhost 127.0.0.1
-```
-
-### Step 4: Configure Claude Desktop
+### Step 5: Configure Claude Desktop
 
 #### Windows
 
@@ -157,11 +167,11 @@ Replace:
 - `your-client-id` with the Client ID from your project administrator
 - `your-client-secret` with the Client Secret from your project administrator
 
-### Step 5: Restart Claude Desktop
+### Step 6: Restart Claude Desktop
 
 Close and reopen Claude Desktop to load the new configuration.
 
-### Step 6: Authenticate
+### Step 7: Authenticate
 
 The first time you use a Slack tool in Claude Desktop:
 
