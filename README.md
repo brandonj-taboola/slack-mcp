@@ -117,11 +117,9 @@ These credentials are for the shared Slack App installed in the Taboola Workspac
 
 ### Step 5: Configure Your Editor
 
-#### Claude Desktop
+Add the following to your MCP configuration file:
 
-##### Windows
-
-Edit `%APPDATA%\Claude\claude_desktop_config.json`:
+#### Windows
 
 ```json
 {
@@ -138,9 +136,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 }
 ```
 
-##### macOS
-
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
+#### macOS
 
 ```json
 {
@@ -157,45 +153,12 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 }
 ```
 
-#### Cursor
+#### Config File Locations
 
-##### Windows
-
-Edit `%APPDATA%\Cursor\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`:
-
-```json
-{
-  "mcpServers": {
-    "slack": {
-      "command": "node",
-      "args": ["C:\\path\\to\\slack-mcp\\build\\index.js"],
-      "env": {
-        "SLACK_CLIENT_ID": "your-client-id",
-        "SLACK_CLIENT_SECRET": "your-client-secret"
-      }
-    }
-  }
-}
-```
-
-##### macOS
-
-Edit `~/Library/Application Support/Cursor/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`:
-
-```json
-{
-  "mcpServers": {
-    "slack": {
-      "command": "node",
-      "args": ["/path/to/slack-mcp/build/index.js"],
-      "env": {
-        "SLACK_CLIENT_ID": "your-client-id",
-        "SLACK_CLIENT_SECRET": "your-client-secret"
-      }
-    }
-  }
-}
-```
+| Editor | Windows | macOS |
+|--------|---------|-------|
+| Claude Desktop | `%APPDATA%\Claude\claude_desktop_config.json` | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Cursor | `%APPDATA%\Cursor\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json` | `~/Library/Application Support/Cursor/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` |
 
 **Note:** Replace `/path/to/slack-mcp` (or `C:\path\to\slack-mcp` on Windows) with the actual path where you cloned the repository. Update the credentials with the values from your project administrator.
 
