@@ -74,7 +74,8 @@ choco install mkcert -y
 # Install the local certificate authority
 mkcert -install
 
-# Generate certificates in the slack-mcp project directory
+# Navigate to the project directory and generate certificates
+cd C:\path\to\slack-mcp
 mkcert localhost 127.0.0.1
 ```
 
@@ -87,11 +88,10 @@ brew install mkcert
 # Install the local certificate authority
 mkcert -install
 
-# Generate certificates in the slack-mcp project directory
+# Navigate to the project directory and generate certificates
+cd /path/to/slack-mcp
 mkcert localhost 127.0.0.1
 ```
-
-Run the `mkcert localhost 127.0.0.1` command from inside your `slack-mcp` directory.
 
 This creates two files in your project directory:
 - `localhost+1.pem` (certificate)
@@ -99,7 +99,10 @@ This creates two files in your project directory:
 
 ### Step 3: Install Dependencies and Build
 
+From the project directory:
+
 ```bash
+cd /path/to/slack-mcp
 npm install
 npm run build
 ```
