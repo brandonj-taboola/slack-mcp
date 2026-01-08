@@ -52,24 +52,14 @@ The MCP server uses the following user token scopes:
 
 ### Step 1: Clone the Project
 
-#### Windows (PowerShell)
-
-```powershell
-cd C:\Users\$env:USERNAME
-mkdir "Claude Projects" -ErrorAction SilentlyContinue
-cd "Claude Projects"
-git clone https://github.com/brandonj-taboola/slack-mcp.git
-cd slack-mcp
-```
-
-#### macOS / Linux
+Clone the repository to any location on your machine:
 
 ```bash
-mkdir -p ~/claude-projects
-cd ~/claude-projects
 git clone https://github.com/brandonj-taboola/slack-mcp.git
 cd slack-mcp
 ```
+
+Note the full path to this directory - you'll need it for the editor configuration later.
 
 ### Step 2: Install SSL Certificates
 
@@ -84,8 +74,7 @@ choco install mkcert -y
 # Install the local certificate authority
 mkcert -install
 
-# Generate certificates in the project directory
-cd "C:\Users\$env:USERNAME\Claude Projects\slack-mcp"
+# Generate certificates in the slack-mcp project directory
 mkcert localhost 127.0.0.1
 ```
 
@@ -98,10 +87,11 @@ brew install mkcert
 # Install the local certificate authority
 mkcert -install
 
-# Generate certificates in the project directory
-cd ~/claude-projects/slack-mcp
+# Generate certificates in the slack-mcp project directory
 mkcert localhost 127.0.0.1
 ```
+
+Run the `mkcert localhost 127.0.0.1` command from inside your `slack-mcp` directory.
 
 This creates two files in your project directory:
 - `localhost+1.pem` (certificate)
@@ -135,7 +125,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
   "mcpServers": {
     "slack": {
       "command": "node",
-      "args": ["C:\\Users\\YOUR_USERNAME\\Claude Projects\\slack-mcp\\build\\index.js"],
+      "args": ["C:\\path\\to\\slack-mcp\\build\\index.js"],
       "env": {
         "SLACK_CLIENT_ID": "your-client-id",
         "SLACK_CLIENT_SECRET": "your-client-secret"
@@ -154,7 +144,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
   "mcpServers": {
     "slack": {
       "command": "node",
-      "args": ["/Users/YOUR_USERNAME/claude-projects/slack-mcp/build/index.js"],
+      "args": ["/path/to/slack-mcp/build/index.js"],
       "env": {
         "SLACK_CLIENT_ID": "your-client-id",
         "SLACK_CLIENT_SECRET": "your-client-secret"
@@ -175,7 +165,7 @@ Edit `%APPDATA%\Cursor\User\globalStorage\saoudrizwan.claude-dev\settings\cline_
   "mcpServers": {
     "slack": {
       "command": "node",
-      "args": ["C:\\Users\\YOUR_USERNAME\\Claude Projects\\slack-mcp\\build\\index.js"],
+      "args": ["C:\\path\\to\\slack-mcp\\build\\index.js"],
       "env": {
         "SLACK_CLIENT_ID": "your-client-id",
         "SLACK_CLIENT_SECRET": "your-client-secret"
@@ -194,7 +184,7 @@ Edit `~/Library/Application Support/Cursor/User/globalStorage/saoudrizwan.claude
   "mcpServers": {
     "slack": {
       "command": "node",
-      "args": ["/Users/YOUR_USERNAME/claude-projects/slack-mcp/build/index.js"],
+      "args": ["/path/to/slack-mcp/build/index.js"],
       "env": {
         "SLACK_CLIENT_ID": "your-client-id",
         "SLACK_CLIENT_SECRET": "your-client-secret"
@@ -204,7 +194,7 @@ Edit `~/Library/Application Support/Cursor/User/globalStorage/saoudrizwan.claude
 }
 ```
 
-**Note:** Replace `YOUR_USERNAME` with your actual username and update the credentials with the values from your project administrator.
+**Note:** Replace `/path/to/slack-mcp` (or `C:\path\to\slack-mcp` on Windows) with the actual path where you cloned the repository. Update the credentials with the values from your project administrator.
 
 ### Step 6: Restart Your Editor
 
